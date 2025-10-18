@@ -573,9 +573,10 @@ function gameLoop(timestamp = 0) {
     if (!gameRunning) return;
 
     if (!isPaused) {
+        const currentDropInterval = isSoftDropping ? softDropInterval : dropInterval;
         dropTime += 16;
 
-        if (dropTime >= dropInterval) {
+        if (dropTime >= currentDropInterval) {
             if (isValidPosition(currentPiece, 0, 1)) {
                 currentPiece.y++;
             } else {
@@ -674,4 +675,31 @@ if (nextPieceContainer) {
             nextPieceContainer.classList.toggle('minimized');
         }
     });
+}
+
+// --- Down Button Image Swap ---
+const downButton = document.getElementById('btn-down');
+if (downButton) {
+    const originalDownImage = 'new_images/down.png';
+    const speedDownImage = 'new_images/down_with_speed.png';
+
+    const pressDown = () => {
+        downButton.src = speedDownImage;
+        isSoftDropping = true;
+    };
+
+    const releaseDown = () => {
+        downButton.src = originalDownImage;
+        isSoftDropping = false;
+    };
+
+    // Mouse events
+    downButton.addEventListener('mousedown', pressDown);
+    downButton.addEventListener('mouseup', releaseDown);
+    downButton.addEventListener('mouseleave', releaseDown); // In case mouse leaves while pressed
+
+    // Touch events
+    downButton.addEventListener('touchstart', pressDown);
+    downButton.addEventListener('touchend', releaseDown);
+    downButton.addEventListener('touchcancel', releaseDown); // In case touch is interrupted
 }
