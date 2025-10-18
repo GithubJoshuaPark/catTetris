@@ -1,0 +1,17 @@
+
+{
+    "name": "고양이 테트리스",
+    "short_name": "캣테트리스",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#a8e6cf",
+    "theme_color": "#ff6b9d",
+    "description": "귀여운 고양이 블록으로 즐기는 클래식 테트리스 게임",
+    "icons": [
+        {
+            "src": "new_images/thumbnail.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

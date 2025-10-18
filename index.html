@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고양이 테트리스 게임 🐱</title>
+
+    <!-- Open Graph (OG) Tags for Social Media Sharing -->
+    <meta property="og:title" content="고양이 테트리스 게임 🐱">
+    <meta property="og:description" content="귀여운 고양이 블록으로 즐기는 클래식 테트리스! 지금 바로 플레이해보세요.">
+    <meta property="og:image" content="https://cattetris.web.app/new_images/thumbnail.png">
+    <meta property="og:url" content="https://cattetris.web.app/">
+    <meta property="og:type" content="website">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <h1>🐱 고양이 테트리스 🐱</h1>
+
+        <div class="game-info">
+            <div>점수: <span id="score">0</span></div>
+            <div>레벨: <span id="level">1</span></div>
+            <div>라인: <span id="lines">0</span></div>
+        </div>
+
+        <canvas id="gameCanvas"></canvas>
+
+        <div class="on-screen-controls">
+            <div class="control-buttons">
+                <img src="new_images/left.png" id="btn-left" alt="Left">
+                <img src="new_images/right.png" id="btn-right" alt="Right">
+                <img src="new_images/down.png" id="btn-down" alt="Down">
+                <img src="new_images/rotate.png" id="btn-rotate" alt="Rotate">
+            </div>
+            <div class="next-piece-container">
+                <canvas id="nextCanvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-over" id="gameOver">
+        <div class="game-over-content">
+            <h2>게임 오버!</h2>
+            <p>최종 점수: <span id="finalScore">0</span></p>
+            <button onclick="startNewGame()">새 게임</button>
+        </div>
+    </div>
+
+    <script src="js/main.js" defer></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

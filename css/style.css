@@ -1,0 +1,212 @@
+body {
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #ff9a9e, #fecfef, #fecfef, #a8e6cf);
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    min-height: 100vh;
+}
+
+.game-container {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #ff6b9d;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    color: #f1f1f1;
+}
+
+#gameCanvas {
+    width: 90%;
+    border: 4px solid #ff6b9d;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+    transition: background-color 0.5s ease;
+}
+
+.on-screen-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.next-piece-container {
+    color: #333;
+    text-align: center;
+}
+
+#nextCanvas {
+    border: 2px solid #ff6b9d;
+    border-radius: 8px;
+    background: #fff;
+    margin-top: 5px;
+}
+
+.control-buttons img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: transform 0.1s;
+}
+
+.control-buttons img:active {
+    transform: scale(0.9);
+}
+
+.game-over {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.game-over-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    color: #333;
+}
+
+button {
+    background: #ff6b9d;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin: 10px;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #e55a87;
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        /* Prevent vertical scrollbar */
+    }
+
+    .game-container {
+        width: 100%;
+        padding: 10px 5px 0;
+        border-radius: 0;
+        /* Adjust padding */
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        /* Make it a bit larger */
+        margin-bottom: 5px;
+    }
+
+    .game-info {
+        font-size: 1em;
+        margin: 0 10px 10px;
+    }
+
+    #gameCanvas {
+        width: 90%;
+        /* Let JS handle the sizing based on container */
+        max-width: 100%;
+        height: 530px;
+        display: block;
+        margin: 0 auto;
+        transition: all 0.3s ease;
+    }
+
+    .on-screen-controls {
+        margin-top: 10px;
+        flex-direction: row;
+        /* Change to row to save vertical space */
+        justify-content: space-around;
+        align-items: center;
+        background-color: transparent;
+        /* Make it cleaner */
+        padding: 0;
+        width: 100%;
+    }
+
+    .control-buttons img {
+        width: 50px;
+        /* Slightly larger buttons */
+        height: 50px;
+        margin: 0 5px;
+    }
+
+    .next-piece-container {
+        visibility: visible;
+        height: auto;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.7);
+        padding: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        /* Indicate it's clickable */
+        transition: all 0.3s ease;
+        /* Smooth transition for size changes */
+    }
+
+    .next-piece-container.minimized {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .next-piece-container.minimized h3 {
+        display: none;
+    }
+
+    .next-piece-container.minimized #nextCanvas {
+        visibility: hidden;
+    }
+
+    h3 {
+        font-size: 0.8em;
+        margin-bottom: 2px;
+        color: #000;
+    }
+}
