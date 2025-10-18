@@ -17,6 +17,7 @@ const urlsToCache = [
     '/new_images/right.png',
     '/new_images/rotate.png',
     '/new_images/thumbnail.png',
+    '/new_images/thumbnail_f.png',
     '/sounds/game_over.wav',
     '/sounds/hard_drop.wav',
     '/sounds/line_clear.wav',
