@@ -239,7 +239,7 @@ function loadImages() {
 
 // 게임 초기화
 function initGame() {
-    loadSounds();
+    // loadSounds(); // Defer sound loading until user interaction
     board = Array(BOARD_HEIGHT).fill().map(() => Array(BOARD_WIDTH).fill(0));
     changeBackgroundColor();
 
@@ -600,10 +600,18 @@ function gameLoop(timestamp = 0) {
 }
 
 // --- 이벤트 리스너 ---
+let soundsInitialized = false;
+const initAudio = () => {
+    if (soundsInitialized) return;
+    getAudioContext();
+    loadSounds();
+    soundsInitialized = true;
+};
+
 document.addEventListener('keydown', (event) => {
     if (!gameRunning) return;
 
-    getAudioContext();
+    initAudio();
 
     if (event.key === 'p' || event.key === 'P') {
         isPaused = !isPaused;
@@ -637,19 +645,19 @@ document.addEventListener('keydown', (event) => {
 });
 
 document.getElementById('btn-left').addEventListener('click', () => {
-    getAudioContext();
+    initAudio();
     handleMoveLeft();
 });
 document.getElementById('btn-right').addEventListener('click', () => {
-    getAudioContext();
+    initAudio();
     handleMoveRight();
 });
 document.getElementById('btn-down').addEventListener('click', () => {
-    getAudioContext();
+    initAudio();
     handleMoveDown();
 });
 document.getElementById('btn-rotate').addEventListener('click', () => {
-    getAudioContext();
+    initAudio();
     handleRotate();
 });
 
