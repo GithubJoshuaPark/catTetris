@@ -17,7 +17,6 @@
 ### CatTetris 게임 아키텍처 다이어그램
 
 ```mermaid
-
 %%{init: {'theme': 'default', 
           'themeVariables': { 'primaryColor': '#ff6b9d', 
                               'primaryTextColor': '#fff', 

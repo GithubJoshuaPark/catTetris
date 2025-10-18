@@ -131,3 +131,109 @@ main.js는 ① 게임 초기화
           특히 고양이 이미지를 블록 모양에 맞춰 
           그려내는 독창적인 렌더링 방식이 이 게임의 가장 큰 기술적 특징이라고 할 수 있습니다.
 ```
+
+
+## Mermaid vsCode Extension 설치
+> "Markdown Mermaid Viewer" 확장 프로그램 
+
+## Component diagram
+```mermaid
+graph LR
+  ImageLoader[Image Loader]
+  SoundLoader[Sound Loader]
+  ResourceLoader[Resource Loader]
+  GameLogic[Game Logic]
+  Renderer[Renderer - gameCanvas and nextCanvas]
+  AudioManager[Audio Manager]
+  InputHandler[Input Handler - keyboard and buttons]
+  UI[DOM UI elements]
+
+  ImageLoader --> ResourceLoader
+  SoundLoader --> ResourceLoader
+  ResourceLoader --> GameLogic
+  InputHandler --> GameLogic
+  InputHandler --> AudioManager
+  GameLogic --> Renderer
+  GameLogic --> AudioManager
+  UI --> InputHandler
+  Renderer --> UI
+```
+
+
+## 초기화 + 메인 흐름도 (gameLoop 중심)
+
+```mermaid
+flowchart TD
+  A["loadImages()"] --> B["initGame()"]
+  B --> C["setGameSize()"]
+  B --> D["board = init; changeBackgroundColor()"]
+  B --> E["currentPiece = createNewPiece(); nextPiece = createNewPiece()"]
+  E --> F["requestAnimationFrame(gameLoop)"]
+
+  subgraph LOOP ["gameLoop (repeats)"]
+    G{"gameRunning && !isPaused?"}
+    H{"drop timer expired?"}
+    I{"can move down? (isValidPosition)"}
+    G -->|yes| H
+    H -->|yes| I
+    I -->|yes| J["move piece down"]
+    I -->|no| K["placePiece()"]
+    K --> L["clearLines(); updateScore(); swap next->current; createNewPiece()"]
+    L --> M{"isGameOver?"}
+    M -->|yes| N["gameOver()"]
+    M -->|no| O["draw()"]
+    H -->|no| O
+    G -->|no| O
+  end
+
+  F --> LOOP
+```
+
+## 상태도 (게임 상태 전이)
+```mermaid
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Running : loadImages() → initGame()
+    Running --> Paused : press "P"
+    Paused --> Running : press "P"
+    Running --> GameOver : isGameOver()
+    GameOver --> Idle : startNewGame()
+```
+
+## 입력 → 처리 시퀀스 (예: 좌/우/회전/하드드롭)
+```mermaid
+sequenceDiagram
+    participant User
+    participant UI
+    participant InputHandler
+    participant GameLogic
+    participant Renderer
+    participant AudioManager
+
+    User->>UI: keydown / button click
+    UI->>InputHandler: event
+    InputHandler->>AudioManager: initAudio() (첫 입력 시)
+    InputHandler->>GameLogic: handleMoveLeft/Right/Down/Rotate/HardDrop
+    GameLogic->>GameLogic: isValidPosition / rotatePiece / placePiece
+    GameLogic->>AudioManager: playSound(move/rotate/hardDrop)
+    GameLogic->>Renderer: draw() (또는 requestAnimationFrame 내부에서 draw)
+    Renderer->>UI: canvas 업데이트
+```
+
+## 주요 함수 맵 (간단한 참조)
+```mermaid
+graph TD
+    loadImages --> initGame
+    initGame --> setGameSize
+    initGame --> createNewPiece
+    initGame --> gameLoop
+    gameLoop --> isValidPosition
+    gameLoop --> placePiece
+    placePiece --> clearLines
+    clearLines --> updateScore
+    draw --> drawPiece
+    drawPiece --> drawBlock
+    anyInput --> initAudio
+    initAudio --> loadSounds
+    anySoundAction --> playSound
+```
