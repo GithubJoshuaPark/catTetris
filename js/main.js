@@ -163,8 +163,8 @@ function getAudioContext() {
 
     // On mibile, the context may be suspended until a user gesture.
     // This will resume it on the first user interaction.
-    if (audiocontext && audiocontext.state === 'suspended') {
-        audiocontext.resume();
+    if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume();
     }
 
     return audioContext;
