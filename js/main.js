@@ -56,8 +56,10 @@ let level = 1;
 let lines = 0;
 let gameRunning = true;
 let isPaused = false;
+let isSoftDropping = false;
 let dropTime = 0;
 let dropInterval = 1000;
+const softDropInterval = 50;
 
 // --- 음향 효과 설정 ---
 let audioContext;
