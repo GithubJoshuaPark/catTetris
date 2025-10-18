@@ -156,15 +156,15 @@ function getAudioContext() {
         try {
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
         } catch (e) {
-            console.error("Web Audio API is not supported in this browser.");
+            console.error("Web Audio API is not supported in this browser.")
             return null;
         }
     }
 
-    // On mobile, the context may be suspended until a user gesture.
+    // On mibile, the context may be suspended until a user gesture.
     // This will resume it on the first user interaction.
-    if (audioContext && audioContext.state === 'suspended') {
-        audioContext.resume();
+    if (audiocontext && audiocontext.state === 'suspended') {
+        audiocontext.resume();
     }
 
     return audioContext;
@@ -636,10 +636,22 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-document.getElementById('btn-left').addEventListener('click', handleMoveLeft);
-document.getElementById('btn-right').addEventListener('click', handleMoveRight);
-document.getElementById('btn-down').addEventListener('click', handleMoveDown);
-document.getElementById('btn-rotate').addEventListener('click', handleRotate);
+document.getElementById('btn-left').addEventListener('click', () => {
+    getAudioContext();
+    handleMoveLeft();
+});
+document.getElementById('btn-right').addEventListener('click', () => {
+    getAudioContext();
+    handleMoveRight();
+});
+document.getElementById('btn-down').addEventListener('click', () => {
+    getAudioContext();
+    handleMoveDown();
+});
+document.getElementById('btn-rotate').addEventListener('click', () => {
+    getAudioContext();
+    handleRotate();
+});
 
 // 게임 시작
 loadImages();
